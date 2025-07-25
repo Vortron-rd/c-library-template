@@ -1,17 +1,17 @@
 include config.mk
 
-SRC = libhpd.c
+SRC = libtemplate.c
 OBJ = ${SRC:.c=.o}
 SO = ${SRC:.c=.so}
 h = ${SRC:.c=.h}
-all: libhpd
+all: libtemplate
 
 .c.o:
 	${CC} -c -fPIC ${CFLAGS} $<
 
 ${OBJ}: config.mk
 
-libhpd: ${OBJ}
+libtemplate: ${OBJ}
 	${CC} -shared -Wl,-soname,libtemplate.so.${MVERSION} -o ${SO} ${OBJ} ${LDFLAGS}
 
 clean:
