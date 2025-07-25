@@ -11,32 +11,29 @@ all: libhpd
 
 ${OBJ}: config.mk
 
-config.h:
-	cp config.def.h $@
-
 libhpd: ${OBJ}
-	${CC} -shared -Wl,-soname,libhpd.so.${MVERSION} -o ${SO} ${OBJ} ${LDFLAGS}
+	${CC} -shared -Wl,-soname,libtemplate.so.${MVERSION} -o ${SO} ${OBJ} ${LDFLAGS}
 
 clean:
-	rm -f libhpd.so ${OBJ} libhpd-${VERSION}.tar.gz ;
+	rm -f libtemplate.so ${OBJ} libtemplate-${VERSION}.tar.gz ;
 test: ${OBJ}
 	${CC} -o $@ ${OBJ} -pedantic -Wall -Wno-deprecated-declarations -O0 -g ${LDFLAGS}
 	
 dist: clean
-	mkdir -p libhpd-${VERSION}
+	mkdir -p libtemplate-${VERSION}
 	cp -R LICENSE Makefile README.md config.mk\
-		 ${SRC} ${h} libhpd-${VERSION}
-	tar -cf libhpd-${VERSION}.tar libhpd-${VERSION}
-	gzip libhpd-${VERSION}.tar
-	rm -rf libhpd-${VERSION}
+		 ${SRC} ${h} libtemplate-${VERSION}
+	tar -cf libtemplate-${VERSION}.tar libtemplate-${VERSION}
+	gzip libtemplate-${VERSION}.tar
+	rm -rf libtemplate-${VERSION}
 
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/lib
-	cp -f libhpd.so ${DESTDIR}${PREFIX}/lib/libhpd.so.${VERSION}
-	link ${DESTDIR}${PREFIX}/lib/libhpd.so.${VERSION} ${DESTDIR}${PREFIX}/lib/libhpd.so
-	link ${DESTDIR}${PREFIX}/lib/libhpd.so.${VERSION} ${DESTDIR}${PREFIX}/lib/libhpd.so.${MVERSION}
+	cp -f libtemplate.so ${DESTDIR}${PREFIX}/lib/libhpd.so.${VERSION}
+	link ${DESTDIR}${PREFIX}/lib/libtemplate.so.${VERSION} ${DESTDIR}${PREFIX}/lib/libtemplate.so
+	link ${DESTDIR}${PREFIX}/lib/libtemplate.so.${VERSION} ${DESTDIR}${PREFIX}/lib/libtemplate.so.${MVERSION}
 
 uninstall:
-	rm -f ${DESTDIR}${PREFIX}/lib/libhpd.so.${VERSION}
+	rm -f ${DESTDIR}${PREFIX}/lib/libtemplate.so.${VERSION}
 
 .PHONY: all clean dist install uninstall
